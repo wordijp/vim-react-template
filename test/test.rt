@@ -1,0 +1,10 @@
+<div>
+	Hello
+	<span class="app__message_green">
+		world
+		{this.getName()}
+		{
+			this.getName()
+		}
+	</span>
+</div>
