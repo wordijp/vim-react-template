@@ -15,31 +15,25 @@ let b:react_template_subtype_indentexpr = &l:indentexpr
 let b:did_indent = 1
 
 setlocal indentexpr=GetReactTemplateIndent()
-"setlocal indentexpr=GetReactTemplateIndent()
-"setlocal indentkeys=o,O,<Return>,<>>,{,},!^F
+" html indentkeys
+setlocal indentkeys=o,O,<Return>,<>>,{,},!^F
+
+let s:starttag = '{'
+let s:endtag = '}'
 
 function! GetReactTemplateIndent(...)
-"  if a:0 && a:1 == '.'
-"    let v:lnum = line('.')
-"  elseif a:0 && a:1 =~ '^\d'
-"    let v:lnum = a:1
-"  endif
-"  let vcol = col('.')
-"  call cursor(v:lnum,1)
   exe "let ind = ".b:react_template_subtype_indentexpr
-  " TODO : here
-"  let lnum = prevnonblank(v:lnum-1)
-"  let line = getline(lnum)
-"  let cline = getline(v:lnum)
-"  let line  = substitute(line,'\C^\%(\s*{%\s*end\w*\s*%}\)\+','','')
-"  let line .= matchstr(cline,'\C^\%(\s*{%\s*end\w*\s*%}\)\+')
-"  let cline = substitute(cline,'\C^\%(\s*{%\s*end\w*\s*%}\)\+','','')
-"  let sw = exists('*shiftwidth') ? shiftwidth() : &sw
-"  let ind += sw * s:count(line,'{%\s*\%(if\|elsif\|else\|unless\|ifchanged\|case\|when\|for\|empty\|tablerow\|capture\)\>')
-"  let ind -= sw * s:count(line,'{%\s*end\%(if\|unless\|ifchanged\|case\|for\|tablerow\|capture\)\>')
-"  let ind -= sw * s:count(cline,'{%\s*\%(elsif\|else\|when\|empty\)\>')
-"  let ind -= sw * s:count(cline,'{%\s*end\w*$')
+
+  " XXX : not completed at once
+  let l:pre_line = getline(v:lnum - 1)
+  if l:pre_line =~ s:starttag && l:pre_line !~ s:endtag
+    let ind = ind + &sw
+  endif
+  let l:line = getline(v:lnum)
+  if l:line =~ s:endtag && l:line !~ s:starttag
+    let ind = ind - &sw
+  endif
+
   return ind
 endfunction
-
 
