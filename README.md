@@ -10,6 +10,9 @@ Syntax highlighting and indenting for [react-template][1]. react-template is a J
 ```vim:.vimrc
 NeoBundle 'wordijp/vim-react-template'
 ```
+# ToDo
+
+add syntax for "rt-import" and "rt-require" keyword
 
 # LICENSE
 
